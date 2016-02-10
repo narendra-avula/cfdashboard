@@ -1,0 +1,20 @@
+.td-head{
+    font-size: 14px
+}
+ .details-tables{
+     padding: 5px 5px 5px 5px;
+ }
+.table-data{
+    font-size: 14px;
+    padding-left: 20px;
+}
+.table-image-for-print{
+
+    margin-left:auto;
+    margin-right:auto;
+    left:0;
+    right:0;
+    position: absolute;
+    width:500px;
+    height:auto;
+}
