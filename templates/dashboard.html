@@ -1,10 +1,46 @@
 {% extends 'base.html' %}
 <body>
   {% block main_section %}
-      <h1>This is Dashboard Page</h1>
-      <h1>This is Dashboard Page</h1>
-      <h1>This is Dashboard Page</h1>
-      <h1>This is Dashboard Page</h1>
-      <h1>This is Dashboard Page</h1>
+     <div class="row">
+        <h3>Select the type of report</h3>
+         <div class=" large-10 medium-2 columns">
+            <ul class="tabs" data-tab>
+              <li class="tab-title active"><a href="#panel1">Daily Report</a></li>
+              <li class="tab-title"><a href="#panel2">Weekly Report</a></li>
+              <li class="tab-title"><a href="#panel3">Monthly Report</a></li>
+              <li class="tab-title"><a href="#panel4">Weekly Sales Report</a></li>
+            </ul>
+         </div>
+        <div class=" large-10 medium-2 columns tabs-content">
+            <div class="content active" id="panel1">
+                <ul class="small-block-grid-1">
+                    <li><img src="{{ STATIC_URL }}img/dashbaord/zohocrm/zoho_crm_logo.png"></li>
+                </ul>
+                <form>
+                    <div class="row collapse">
+                        <div class="large-6 columns">
+                            <div class="row collapse postfix-round">
+                                <div class="small-9 columns">
+                                    <input type="date" placeholder="select date Here" required>
+                                </div>
+                                <div class="small-3 columns">
+                                    <input type="submit" id="selected-date" class="button postfix" onclick="sendDateToZoho()"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="content" id="panel2">
+                <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
+            </div>
+            <div class="content" id="panel3">
+                <p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
+            </div>
+            <div class="content" id="panel4">
+                <p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
+            </div>
+        </div>
+     </div>
   {% endblock %}
 </body>
