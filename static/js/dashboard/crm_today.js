@@ -27,6 +27,48 @@ function sendDateToZoho(){
        alert("Please Select Current Date Only");
    }
    else{
-       alert("Input Is ok..!!");
+       RequestForData(selectedDate);
    }
+}
+
+function RequestForData(selectedDate)
+{
+    alert("ajax is working");
+    $.ajax({
+        url:"http://localhost:8005/cf/get-data",
+        type:"POST",
+        data: {
+            "selectedDate":selectedDate
+        },
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        datatype: "application/json",
+        success: function (response)
+        {
+            $('#test-success').text("Sucess...!");
+        },
+        error: function (response)
+        {
+            $('test-error').show();
+        }
+
+    });
+}
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
