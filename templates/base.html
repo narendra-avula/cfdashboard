@@ -6,7 +6,7 @@
   <title>Foundation Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+{#  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>#}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/foundation.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/owl.carousel.css">
@@ -19,6 +19,16 @@
   <script src="{{ STATIC_URL }}js/foundation.min.js" type="application/javascript"></script>
   <script src="{{ STATIC_URL }}js/vendor/modernizr.js" type="application/javascript"></script>
   <script src="{{ STATIC_URL }}js/dashboard/crm_today.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/dashboard/graph_check.js" type="application/javascript"></script>
+
+
+  <script src="{{ STATIC_URL }}js/jqplot/jquery.jqplot.min.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jqplot/jquery.jqplot.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jqplot/jqplot.barRenderer.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jqplot/jqplot.pieRenderer.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jqplot/jqplot.categoryAxisRenderer.js" type="application/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jqplot/jqplot.pointLabels.js" type="application/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/jqplot/jquery.jqplot.css">
   <script>
       $(document).ready(function() {
               $(document).foundation();
