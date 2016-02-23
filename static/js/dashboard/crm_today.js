@@ -17,45 +17,53 @@ function getTodayDate(){
    var today = yyyy+'-'+mm+'-'+dd;
    return today;
 }
-
-function sendDateToZoho(){
-   var selectedDate = document.getElementById("selected-date").value;
-   alert(selectedDate);
-   var todayDate = getTodayDate();
-   if (selectedDate!=todayDate)
-   {
-       alert("Please Select Current Date Only");
-   }
-   else{
-       RequestForData(selectedDate);
-   }
-}
-
-function RequestForData(selectedDate)
+function sendDateToZoho()
 {
-    alert("ajax is working");
-    $.ajax({
-        url:"http://localhost:8005/cf/get-data",
-        type:"POST",
-        data: {
-            "selectedDate":selectedDate
-        },
-        headers: {
-            "X-CSRFToken": getCookie('csrftoken')
-        },
-        datatype: "application/json",
-        success: function (response)
-        {
-            $('#test-success').text("Sucess...!");
-        },
-        error: function (response)
-        {
-            $('test-error').show();
-        }
+    document.getElementById('city-graph').innerHTML = "";
+    document.getElementById('status-graph').innerHTML = "";
+    var selectedDate = document.getElementById("selected-date").value;
+    var todayDate = getTodayDate();
+    if (selectedDate!=todayDate)
+    {
+           alert("Please Select Current Date Only");
+    }
+    else{
+        $("#ajax-loader").show();
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:8005/cf/get-data",
+            dataType:"json",
+            data:{
+                "date":selectedDate
+            },
+            success:function(response){
+                var text = JSON.stringify(response);
+                if (text){
+                    var cityNames = [];
+                    var leadCount = [];
+                    var leadStatus = [];
+                    var leadsCount = [];
+                    for( var names in response.cityReport){
+                        cityNames.push(names);
+                        leadCount.push(response.cityReport[names]);
+                    }
+                    for(var status in response.leadStatusReport){
+                        leadStatus.push(status);
+                        leadsCount.push(response.leadStatusReport[status]);
+                    }
+                    plotGraph(cityNames,leadCount,"city-graph");
+                    plotGraph(leadStatus,leadsCount, "status-graph");
+                    $("#ajax-loader").hide();
+                }
+            },
+            error:function(){
+                alert("Internal Server Error");
+            }
 
-    });
+        });
+    }
+
 }
-
 
 function getCookie(name) {
     var cookieValue = null;
@@ -71,4 +79,49 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+   }
+   var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+function plotGraph(cityNames,LeadCount,divName)
+{
+
+        $.jqplot.config.enablePlugins = true;
+        var s1 = LeadCount;
+        var ticks = cityNames;
+
+        plot1 = $.jqplot(divName, [s1], {
+            // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+            animate: !$.jqplot.use_excanvas,
+            seriesDefaults:{
+                renderer:$.jqplot.BarRenderer,
+                pointLabels: { show: true }
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks
+                }
+            },
+            highlighter: { show: false }
+        });
+
+        $('#'+divName).bind('jqplotDataClick',
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info1').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+            }
+        );
+       return true;
 }

@@ -24,14 +24,27 @@
                                     <input type="date" id="selected-date"  placeholder="select date Here" required>
                                 </div>
                                 <div class="small-3 columns">
-                                    <input type="submit" class="button postfix" onclick="sendDateToZoho()"/>
+                                    <a class="button postfix" type="submit" onclick="sendDateToZoho()">Submit</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
+                <h2 id="ajax-loader" style="margin-left: 250px;" class="hide">
+                    <img src="{{ STATIC_URL }}img/dashboard/Spinning square-64.gif">
+                    <p>Fetching Data... Please wait</p>
+                </h2>
                 <p id="test-success"></p>
-                <p id="test-error"></p>
+                <div class="row">
+                    <div id="city-graph" class="large-12 columns">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="status-graph" class="large-12 columns">
+
+                    </div>
+                </div>
             </div>
             <div class="content" id="panel2">
                 <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>

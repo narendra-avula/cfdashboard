@@ -1,5 +1,5 @@
 body,h1,h2,h3,h4,p,li,a{
-    font-family: 'Open Sans', sans-serif !important;
+    /*font-family: 'Open Sans', sans-serif !important;*/
 }
 .heading-div,.file-upload-div{
     margin-top: 20px;
